@@ -28,39 +28,39 @@ public class RuleEngineTest {
     private Context context;
 
     @Before
-    public void setup(){
+    public void setup() {
         mock = new MockHelper();
         ruleEngine = new RuleEngine();
     }
 
     @Test
-    public void whenAllRulesAllowAccess_AccessIsGranted(){
+    public void whenAllRulesAllowAccess_AccessIsGranted() {
         mock.allRulesAllowAccess();
         Authorization authorization = ruleEngine.retrieveAuthorizationForContext(rules, context);
-        assertThat(authorization.hasAccess(),is(true));
+        assertThat(authorization.hasAccess(), is(true));
     }
 
     @Test
-    public void whenOneRuleDeniesAccess_AccessIsDenied(){
+    public void whenOneRuleDeniesAccess_AccessIsDenied() {
         mock.oneRuleDeniesAccess();
         Authorization authorization = ruleEngine.retrieveAuthorizationForContext(rules, context);
-        assertThat(authorization.hasAccess(),is(false));
+        assertThat(authorization.hasAccess(), is(false));
     }
 
     @Test
-    public void whenMultipleRulesFail_AllReasonsForDenialAreAvailable(){
+    public void whenMultipleRulesFail_AllReasonsForDenialAreAvailable() {
         String reason1 = "Underage";
         String reason2 = "Not a working day";
-        mock.multipleRulesFailWithReasons(reason1,reason2);
+        mock.multipleRulesFailWithReasons(reason1, reason2);
         Authorization authorization = ruleEngine.retrieveAuthorizationForContext(rules, context);
         assertThat(authorization.getReasonsForDenial(), IsIterableContainingInAnyOrder.containsInAnyOrder(reason1, reason2));
     }
 
-    private class MockHelper{
+    private class MockHelper {
 
         private void allRulesAllowAccess() {
             rules = new ArrayList<Rule>();
-            Rule rule = mockRule(true,null);
+            Rule rule = mockRule(true, null);
             rules.add(rule);
         }
 
@@ -79,7 +79,7 @@ public class RuleEngineTest {
 
         public void multipleRulesFailWithReasons(String... reasons) {
             rules = new ArrayList<Rule>();
-            for(String reason : reasons){
+            for (String reason : reasons) {
                 Rule rule = mockRule(false, reason);
                 rules.add(rule);
             }

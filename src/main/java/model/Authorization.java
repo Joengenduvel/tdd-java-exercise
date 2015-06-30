@@ -2,11 +2,11 @@ package model;
 
 import java.util.List;
 
-public final class Authorization{
+public final class Authorization {
 
     private final List<String> reasonsForDenial;
 
-    public Authorization( List<String> reasonsForDenial) {
+    public Authorization(List<String> reasonsForDenial) {
         this.reasonsForDenial = reasonsForDenial;
     }
 
