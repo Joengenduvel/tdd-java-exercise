@@ -9,6 +9,6 @@ import java.util.List;
 public class RuleEngine {
 
     public Authorization retrieveAuthorizationForContext(List<Rule> rules, Context context) {
-        return null;
+        return new Authorization(true);
     }
 }
