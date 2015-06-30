@@ -4,20 +4,14 @@ import java.util.List;
 
 public final class Authorization{
 
-    private final boolean access;
     private final List<String> reasonsForDenial;
 
-    public Authorization(boolean access) {
-        this(access, null);
-    }
-
-    public Authorization(boolean access, List<String> reasonsForDenial) {
-        this.access = access;
+    public Authorization( List<String> reasonsForDenial) {
         this.reasonsForDenial = reasonsForDenial;
     }
 
     public boolean hasAccess() {
-        return access;
+        return reasonsForDenial == null || reasonsForDenial.isEmpty();
     }
 
     public List<String> getReasonsForDenial() {
