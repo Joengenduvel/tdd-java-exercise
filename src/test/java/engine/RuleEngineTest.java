@@ -39,13 +39,31 @@ public class RuleEngineTest {
         assertThat(authorization.hasAccess(),is(true));
     }
 
+    @Test
+    public void whenOneRuleDeniesAccess_AccessIsDenied(){
+        mock.oneRuleDeniesAccess();
+        Authorization authorization = ruleEngine.retrieveAuthorizationForContext(rules, context);
+        assertThat(authorization.hasAccess(),is(false));
+    }
+
     private class MockHelper{
 
         private void allRulesAllowAccess() {
             rules = new ArrayList<Rule>();
-            Rule rule = Mockito.mock(Rule.class);
-            when(rule.isFulfilledIn(any(Context.class))).thenReturn(true);
+            Rule rule = mockRule(true);
             rules.add(rule);
+        }
+
+        private void oneRuleDeniesAccess() {
+            rules = new ArrayList<Rule>();
+            Rule rule = mockRule(false);
+            rules.add(rule);
+        }
+
+        private Rule mockRule(final boolean access) {
+            Rule rule = Mockito.mock(Rule.class);
+            when(rule.isFulfilledIn(any(Context.class))).thenReturn(access);
+            return rule;
         }
     }
 
