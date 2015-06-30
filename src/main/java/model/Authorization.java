@@ -14,4 +14,8 @@ public final class Authorization{
     public boolean hasAccess() {
         return access;
     }
+
+    public List<String> getReasonsForDenial() {
+        return reasonsForDenial;
+    }
 }
